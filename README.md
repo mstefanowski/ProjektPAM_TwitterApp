@@ -30,5 +30,7 @@ Program napiszę w Javie na platformę Android. Do komunikacji z Twitterem skorz
   - Poprawki, udoskonalenia, brakujące funkcjonalności.
 
 # Przykładowy wygląd aplikacji
+![image](https://user-images.githubusercontent.com/50266537/110711459-e4311e80-81ff-11eb-8486-c6ea60c962f6.png) ![image](https://user-images.githubusercontent.com/50266537/110711487-f01ce080-81ff-11eb-80ff-6abe85d1fa5f.png)
 
-![](RackMultipart20210310-4-dmt576_html_799cfd5980e684f3.png) ![](RackMultipart20210310-4-dmt576_html_5a1e67c56a26aa64.png)
+
+
