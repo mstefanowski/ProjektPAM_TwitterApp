@@ -3,7 +3,6 @@ package pl.edu.uwr.pum.twitterapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 requestEmailAddress(getApplicationContext(), result.data);
+
+                Intent intent = new Intent(getApplicationContext(), TweetListActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void success(Result<String> result) {
                 Toast.makeText(context, "gituwa dziala", Toast.LENGTH_SHORT).show();
-                Log.i("Result test", result.toString());
             }
 
             @Override
