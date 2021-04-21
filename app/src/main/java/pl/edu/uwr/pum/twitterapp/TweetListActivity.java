@@ -31,7 +31,7 @@ public class TweetListActivity extends AppCompatActivity {
         recyclerView.setAdapter(tweetAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // pobieranie twweetów z "homeTimeline"
         TwitterCore.getInstance().getApiClient().getStatusesService().homeTimeline(null, null, null, null, null, null, null).enqueue(new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> result) {

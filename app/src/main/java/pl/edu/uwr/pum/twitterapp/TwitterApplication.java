@@ -9,7 +9,6 @@ import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class TwitterApplication extends Application {
     private static final String TAG = TwitterApplication.class.getSimpleName();
@@ -22,13 +21,15 @@ public class TwitterApplication extends Application {
 
         Twitter.initialize(this);
 
-        final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        //final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        //loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         final OkHttpClient customClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor).build();
+                //.addInterceptor(loggingInterceptor)
+                .build();
 
         final TwitterSession activeSession = TwitterCore.getInstance()
-                .getSessionManager().getActiveSession();
+                .getSessionManager()
+                .getActiveSession();
 
         final TwitterApiClient customApiClient;
         if (activeSession != null) {

@@ -9,36 +9,95 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="5dp"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/avatarImageView"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:layout_constraintEnd_toStartOf="@+id/usernameTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginEnd="5dp"/>
+
             <TextView
                 android:id="@+id/usernameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="username"
                 android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/avatarImageView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tweetContentTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:hint="tweetContent"
+                android:layout_marginEnd="40dp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.195"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/avatarImageView"
                 app:layout_constraintTop_toBottomOf="@+id/usernameTextView"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginStart="5dp"/>
+
+            <ImageView
+                android:id="@+id/heartImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_favorite_border_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/heartsTextView"/>
+
+            <TextView
+                android:id="@+id/heartsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="TextView"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/avatarImageView"
+                app:layout_constraintTop_toBottomOf="@+id/tweetContentTextView" />
+
+
+            <ImageView
+                android:id="@+id/retweetImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_swap_calls_24"
+                app:layout_constraintStart_toEndOf="@id/heartsTextView"
+                app:layout_constraintEnd_toStartOf="@id/retweetsTextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="40dp"/>
+
+            <TextView
+                android:id="@+id/retweetsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="TextView"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@id/retweetImageView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
