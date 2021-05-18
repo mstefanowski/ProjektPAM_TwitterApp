@@ -57,13 +57,16 @@
                 app:layout_constraintVertical_bias="0.0"
                 android:layout_marginStart="5dp"/>
 
-            <ImageView
-                android:id="@+id/heartImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_favorite_border_24"
+            <ToggleButton
+                android:id="@+id/favouriteToggleButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/toggle_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/heartsTextView"/>
+                app:layout_constraintEnd_toStartOf="@id/heartsTextView"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/heartsTextView"
@@ -77,11 +80,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/tweetContentTextView" />
 
 
-            <ImageView
-                android:id="@+id/retweetImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_swap_calls_24"
+            <ToggleButton
+                android:id="@+id/retweetToggleButton"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/retweet_toggle_selector"
                 app:layout_constraintStart_toEndOf="@id/heartsTextView"
                 app:layout_constraintEnd_toStartOf="@id/retweetsTextView"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +99,7 @@
                 android:layout_marginBottom="4dp"
                 android:text="TextView"
                 android:layout_marginTop="5dp"
-                app:layout_constraintStart_toEndOf="@id/retweetImageView"
+                app:layout_constraintStart_toEndOf="@id/retweetToggleButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
 
