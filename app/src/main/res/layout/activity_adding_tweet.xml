@@ -4,23 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TweetListActivity">
+    tools:context=".AddingTweetActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_tweet_list"
+    <EditText
+        android:id="@+id/AddTweetEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:hint="Add Tweet"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/AddTweetFAB"
+    <Button
+        android:id="@+id/addTweetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:contentDescription="TODO"
+        android:text="ADD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/AddTweetEditText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
