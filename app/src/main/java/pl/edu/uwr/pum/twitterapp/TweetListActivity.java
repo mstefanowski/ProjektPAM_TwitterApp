@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,8 @@ public class TweetListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton AddTweetFAB;
+    static final int UPDATE_TWEETS = 100;
+    TweetAdapter tweetAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +60,13 @@ public class TweetListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UPDATE_TWEETS){
+            tweetAdapter.notifyDataSetChanged();
+        }
     }
 }
