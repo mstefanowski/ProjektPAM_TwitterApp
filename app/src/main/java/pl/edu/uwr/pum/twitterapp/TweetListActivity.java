@@ -35,10 +35,30 @@ public class TweetListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_tweet_list);
         AddTweetFAB = findViewById(R.id.AddTweetFAB);
 
-        TweetAdapter tweetAdapter = new TweetAdapter(this, new ArrayList<Tweet>());
+        tweetAdapter = new TweetAdapter(this, new ArrayList<Tweet>());
         recyclerView.setAdapter(tweetAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        updateTweets();
+
+        AddTweetFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddingTweetActivity.class);
+                startActivityForResult(intent, UPDATE_TWEETS);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UPDATE_TWEETS){
+            updateTweets();
+        }
+    }
+
+    private void updateTweets(){
         // pobieranie twweetów z "homeTimeline"
         TwitterCore.getInstance().getApiClient().getStatusesService().homeTimeline(null, null, null, null, null, null, null).enqueue(new Callback<List<Tweet>>() {
             @Override
@@ -52,21 +72,5 @@ public class TweetListActivity extends AppCompatActivity {
                 Log.i("stefan", exception.toString());
             }
         });
-
-        AddTweetFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddingTweetActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == UPDATE_TWEETS){
-            tweetAdapter.notifyDataSetChanged();
-        }
     }
 }

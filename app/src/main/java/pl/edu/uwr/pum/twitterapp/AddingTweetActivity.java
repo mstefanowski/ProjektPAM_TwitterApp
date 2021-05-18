@@ -1,6 +1,5 @@
 package pl.edu.uwr.pum.twitterapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,8 +46,7 @@ public class AddingTweetActivity extends AppCompatActivity {
                         public void success(Result<Tweet> result) {
                             Log.i("Stefan", "Success update");
 
-                            Intent intent = new Intent(getApplicationContext(), TweetListActivity.class);
-                            startActivityForResult(intent, UPDATE_TWEETS);
+                            finish();
                         }
 
                         @Override
