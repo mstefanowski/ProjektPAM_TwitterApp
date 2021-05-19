@@ -5,10 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -47,6 +45,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         holder.usernameTextView.setText(tweetList.get(position).user.screenName);
         holder.tweetTextView.setText(tweetList.get(position).text);
 
+        boolean isFavourited = tweetList.get(position).favorited;
+        boolean isRetweeted = tweetList.get(position).retweeted;
+
 
         int hearts = tweetList.get(position).favoriteCount;
         int retweets = tweetList.get(position).retweetCount; //bierze followy z retweetowanego posta
@@ -57,12 +58,13 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         String imageUrl = tweetList.get(position).user.profileImageUrlHttps;
         Picasso.get().load(imageUrl).into(holder.avatarImageView);
 
-        holder.favouriteButtonToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @SuppressLint("SetTextI18n")
+        if(isFavourited) {holder.favouriteButtonToggle.setChecked(true);}
+        if(isRetweeted) {holder.retweetButtonToggle.setChecked(true);}
+
+        holder.favouriteButtonToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    Toast.makeText(context, "POLAJKOWANE", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                if(holder.favouriteButtonToggle.isChecked()) {
                     holder.heartsTextView.setText(String.valueOf(hearts + 1));
                     TwitterCore.getInstance().getApiClient().getFavoriteService().create(tweetList.get(position).id, null).enqueue(new Callback<Tweet>() {
                         @Override
@@ -75,9 +77,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
                         }
                     });
-
                 } else {
-                    Toast.makeText(context, "ODLAJKOWANE", Toast.LENGTH_SHORT).show();
                     holder.heartsTextView.setText(String.valueOf(hearts));
                     TwitterCore.getInstance().getApiClient().getFavoriteService().destroy(tweetList.get(position).id, null).enqueue(new Callback<Tweet>() {
                         @Override
@@ -94,10 +94,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             }
         });
 
-        holder.retweetButtonToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.retweetButtonToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+            public void onClick(View v) {
+                if(holder.retweetButtonToggle.isChecked()){
                     holder.retweetsTextView.setText(String.valueOf(retweets + 1));
                     TwitterCore.getInstance().getApiClient().getStatusesService().retweet(tweetList.get(position).id, null).enqueue(new Callback<Tweet>() {
                         @Override
@@ -110,7 +110,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
                         }
                     });
-
                 } else {
                     holder.retweetsTextView.setText(String.valueOf(retweets));
                     TwitterCore.getInstance().getApiClient().getStatusesService().unretweet(tweetList.get(position).id, null).enqueue(new Callback<Tweet>() {
@@ -124,7 +123,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
                         }
                     });
-
                 }
             }
         });
