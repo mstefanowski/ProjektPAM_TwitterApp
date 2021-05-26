@@ -17,6 +17,7 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.models.MediaEntity;
 import com.twitter.sdk.android.core.models.Tweet;
 
 import java.util.List;
@@ -47,6 +48,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         boolean isFavourited = tweetList.get(position).favorited;
         boolean isRetweeted = tweetList.get(position).retweeted;
+
+        MediaEntity firstEntity = null;
+
+        if(tweetList.get(position).extendedEntities.media.size() > 0) {
+            firstEntity = tweetList.get(position).extendedEntities.media.get(0); }
+
+        if(firstEntity != null && firstEntity.type.equals("photo")){
+            String photoString = firstEntity.mediaUrlHttps;
+            Picasso.get().load(photoString).into(holder.pictureImageView);
+        }
+
 
 
         int hearts = tweetList.get(position).favoriteCount;
@@ -141,7 +153,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView usernameTextView, tweetTextView, heartsTextView, retweetsTextView;
-        ImageView avatarImageView;
+        ImageView avatarImageView, pictureImageView;
         ToggleButton favouriteButtonToggle, retweetButtonToggle;
 
         public ViewHolder(@NonNull View itemView) {
@@ -150,9 +162,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             favouriteButtonToggle = itemView.findViewById(R.id.favouriteToggleButton);
             retweetButtonToggle = itemView.findViewById(R.id.retweetToggleButton);
 
+            avatarImageView = itemView.findViewById(R.id.avatarImageView);
+            pictureImageView = itemView.findViewById(R.id.pictureImageView);
+
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
             tweetTextView = itemView.findViewById(R.id.tweetContentTextView);
-            avatarImageView = itemView.findViewById(R.id.avatarImageView);
             heartsTextView = itemView.findViewById(R.id.heartsTextView);
             retweetsTextView = itemView.findViewById(R.id.retweetsTextView);
         }

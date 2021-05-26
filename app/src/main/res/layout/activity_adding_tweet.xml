@@ -17,8 +17,16 @@
         android:id="@+id/addTweetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD"
+        android:text="ADD TWEET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/AddTweetEditText"/>
+
+    <Button
+        android:id="@+id/addPictureButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD PICTURE"
+        app:layout_constraintTop_toBottomOf="@+id/addTweetButton"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
