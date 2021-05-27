@@ -57,6 +57,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         if(firstEntity != null && firstEntity.type.equals("photo")){
             String photoString = firstEntity.mediaUrlHttps;
             Picasso.get().load(photoString).into(holder.pictureImageView);
+        } else {
+            holder.pictureImageView.setImageDrawable(null);
         }
 
 
