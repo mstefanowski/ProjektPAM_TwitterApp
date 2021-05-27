@@ -60,7 +60,7 @@ public class TweetListActivity extends AppCompatActivity {
 
     private void updateTweets(){
         // pobieranie twweetów z "homeTimeline"
-        TwitterCore.getInstance().getApiClient().getStatusesService().homeTimeline(null, null, null, null, null, null, null).enqueue(new Callback<List<Tweet>>() {
+        TwitterCore.getInstance().getApiClient().getStatusesService().homeTimeline(50, null, null, null, null, null, null).enqueue(new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> result) {
                 tweetAdapter.setTweetList(result.data);
