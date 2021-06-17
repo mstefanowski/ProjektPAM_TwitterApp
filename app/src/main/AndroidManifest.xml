@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TwitterApp">
-        <activity android:name=".AddingTweetActivity"></activity>
+        <activity android:name=".SettingsPopUp"
 
 
+            android:theme="@style/Theme.AppCompat.PopUp"/>
+        <activity android:name=".AddingTweetActivity" />
         <activity android:name=".TweetListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -30,13 +31,17 @@ public class TweetListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton AddTweetFAB;
     static final int UPDATE_TWEETS = 100;
+    static final int UPDATE_SETTINGS = 69;
     TweetAdapter tweetAdapter;
+
+    String currentBio;
 
     TextView currentUserNameTextView;
     TextView currentUserNickNameTextView;
 
     ImageView currentUserAvatar;
     ToggleButton modeToggleButton;
+    Button editButton;
 
     long currentUsernameID;
 
@@ -55,14 +60,57 @@ public class TweetListActivity extends AppCompatActivity {
         currentUserAvatar = findViewById(R.id.currentUserAvatar);
 
         modeToggleButton = findViewById(R.id.modeToggleButton);
+        editButton = findViewById(R.id.editButton);
 
         tweetAdapter = new TweetAdapter(this, new ArrayList<Tweet>());
         recyclerView.setAdapter(tweetAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
+        updateSettings();
+        updateTweets();
+
+
+        AddTweetFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TweetListActivity.this, AddingTweetActivity.class);
+                startActivityForResult(intent, UPDATE_TWEETS);
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TweetListActivity.this, SettingsPopUp.class);
+                intent.putExtra("currentName", currentUserNameTextView.getText().toString());
+                intent.putExtra("currentBio", currentBio);
+                startActivityForResult(intent, UPDATE_SETTINGS);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UPDATE_TWEETS){
+            updateTweets();
+        }
+        if(requestCode == UPDATE_SETTINGS) {
+            String newBio = data.getStringExtra("newBio");
+            String newName = data.getStringExtra("newName");
+
+            // ZNAJDZ POST KURWA SETTINGS DEBILU
+        }
+    }
+
+
+    private void updateSettings(){
         TwitterCore.getInstance().getApiClient().getAccountService().verifyCredentials(false, false, false).enqueue(new Callback<User>() {
             @Override
             public void success(Result<User> result) {
+                currentBio = result.data.description;
                 currentUserNameTextView.setText(result.data.screenName);
                 currentUserNickNameTextView.setText(result.data.name);
                 String uri = result.data.profileImageUrlHttps;
@@ -76,26 +124,6 @@ public class TweetListActivity extends AppCompatActivity {
 
             }
         });
-
-
-        updateTweets();
-
-
-        AddTweetFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddingTweetActivity.class);
-                startActivityForResult(intent, UPDATE_TWEETS);
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == UPDATE_TWEETS){
-            updateTweets();
-        }
     }
 
     private void updateTweets(){
@@ -132,7 +160,6 @@ public class TweetListActivity extends AppCompatActivity {
                     null).enqueue(new Callback<List<Tweet>>() {
                 @Override
                 public void success(Result<List<Tweet>> result) {
-                    tweetAdapter.setTweetList(result.data);
                     tweetAdapter.notifyDataSetChanged();
                 }
 
