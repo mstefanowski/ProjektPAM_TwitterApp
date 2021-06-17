@@ -6,10 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".TweetListActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/tw__composer_black">
+
+        <ImageView
+            android:id="@+id/currentUserAvatar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/currentUserNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/currentUserAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/tw__composer_white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/currentUserNicknameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/currentUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/currentUserNameTextView"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="15dp"
+            android:textColor="@color/tw__composer_white"
+            android:textSize="18sp"/>
+
+        <ToggleButton
+            android:id="@+id/modeToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="15dp"
+            android:textOff="@string/home"
+            android:textOn="@string/profile"
+            android:onClick="modeToggleClicked"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_tweet_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintTop_toBottomOf="@id/userInfoLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
