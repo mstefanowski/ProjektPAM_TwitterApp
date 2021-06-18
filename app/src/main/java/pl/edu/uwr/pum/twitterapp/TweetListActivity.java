@@ -20,6 +20,7 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterUtils;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.models.User;
 
@@ -101,18 +102,40 @@ public class TweetListActivity extends AppCompatActivity {
             String newBio = data.getStringExtra("newBio");
             String newName = data.getStringExtra("newName");
 
-            // ZNAJDZ POST KURWA SETTINGS DEBILU
+            Log.i("STEFAN", "newBio= "+newBio);
+            Log.i("STEFAN", "newName= " +newName);
+
+            TwitterUtils.getPostAccountService(TwitterCore.getInstance().getApiClient()).postChangedSettings(
+                    newName,
+                    null,
+                    null,
+                    newBio,
+                    null,
+                    null,
+                    null).enqueue(new Callback<User>() {
+                @Override
+                public void success(Result<User> result) {
+                    updateSettings();
+                }
+
+                @Override
+                public void failure(TwitterException exception) {
+
+                }
+            });
         }
+
     }
 
 
     private void updateSettings(){
-        TwitterCore.getInstance().getApiClient().getAccountService().verifyCredentials(false, false, false).enqueue(new Callback<User>() {
+        TwitterCore.getInstance().getApiClient().getAccountService().verifyCredentials(
+                                    false, false, false).enqueue(new Callback<User>() {
             @Override
             public void success(Result<User> result) {
                 currentBio = result.data.description;
-                currentUserNameTextView.setText(result.data.screenName);
-                currentUserNickNameTextView.setText(result.data.name);
+                currentUserNameTextView.setText(result.data.name);
+                currentUserNickNameTextView.setText(result.data.screenName);
                 String uri = result.data.profileImageUrlHttps;
                 Picasso.get().load(uri).into(currentUserAvatar);
 

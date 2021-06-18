@@ -21,7 +21,7 @@ public class SettingsPopUp extends Activity {
 
         changeBioEditText = findViewById(R.id.changeBioEditText);
         changeNameEditText = findViewById(R.id.changeNameEditText);
-        changeButton = findViewById(R.id.editButton);
+        changeButton = findViewById(R.id.editSettingsButton);
 
         String currentBio = getIntent().getStringExtra("currentBio");
         String currentName = getIntent().getStringExtra("currentName");
